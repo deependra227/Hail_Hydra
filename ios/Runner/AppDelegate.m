@@ -10,12 +10,4 @@
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application{
-    self.window.hidden = YES;
-}
-
-- (void)applicationDidBecomeActive:(UIApplication *)application{
-    self.window.hidden = NO;
-}
-
 @end
