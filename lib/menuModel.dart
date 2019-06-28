@@ -5,9 +5,11 @@ class Menu {
   String image;
   Color menuColor;
   String site;
-
+  int id;
   Menu(
-      {this.title,
+
+      {this.id,
+        this.title,
         this.image,
         this.site,
         this.menuColor = Colors.black});

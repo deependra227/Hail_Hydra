@@ -10,7 +10,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   Widget com(buildContext,Menu list) => InkWell(
-    onTap: () => {},
+    onTap: () => Navigator.pushNamed(context, '/doctor_page',arguments: list.id ),
     splashColor: Colors.blue,
     child: Card(
       clipBehavior: Clip.antiAlias,
@@ -21,7 +21,7 @@ class _MyHomePageState extends State<MyHomePage> {
           img(list),
           img2(list),
           menuColor(),
-          menuData(),
+          menuData(list),
         ],
       ),
     ),
@@ -53,12 +53,12 @@ List<Menu> menu;
     ]),
   );
 
-  Widget menuData() => Column(
+  Widget menuData(Menu list) => Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: <Widget>[
 
       Text(
-        "Doctors",
+        list.title,
         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       )
     ],
@@ -78,7 +78,7 @@ List<Menu> menu;
       ),
       title: Row(
         children: <Widget>[
-          Text('DOCTORS')
+          Text('Dcotors')
         ],
       ),
     ),
@@ -105,49 +105,8 @@ List<Menu> menu;
               return com(context,Menu1.menuList[index]);
             }, childCount: Menu1.menuList.length),
           ),
-
-
         ],
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.all(0),
-          
-          children: <Widget>[
-            UserAccountsDrawerHeader(
-              accountName: Text('Options to be here'),
-              currentAccountPicture: CircleAvatar(
-                backgroundColor: Colors.white,
-                child: new Text("P"),
-              ),
-              
-              decoration: BoxDecoration(
-                color: Colors.black,
-              ),
-            ),
-            ListTile(
-              title: Text('Home'),
-              leading: Icon(Icons.home),
-              onTap: () {
-              // Update the state of the app.
-              // ...
-              Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: Text('Page'),
-              leading: Icon(Icons.navigate_next),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-                Navigator.pop(context);
-
-              },
-            ),
-          ],
-        ),
-        elevation: 16.0,
-        ),
     );
   }
 }
