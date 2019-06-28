@@ -6,7 +6,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "antaragni",
+      title: "iMED",
       home: MyHomePage(),
 
       routes: <String, WidgetBuilder>{
