@@ -117,7 +117,7 @@ List<Menu> menu;
             UserAccountsDrawerHeader(
               accountName: Text('Options to be here'),
               currentAccountPicture: CircleAvatar(
-                backgroundColor: Colors.brown,
+                backgroundColor: Colors.white,
                 child: new Text("P"),
               ),
               
