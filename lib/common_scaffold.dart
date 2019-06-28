@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-//import 'widgets/common_drawer.dart';
 import 'widgets/custom_float.dart';
 
 class CommonScaffold extends StatelessWidget {
