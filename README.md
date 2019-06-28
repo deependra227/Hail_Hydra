@@ -10,4 +10,5 @@
 
 *) *** We are plaaning to implement ML techniques to detect and find quarrantine measures for a particular outburst of an epidemic disease which will be useful in alerting people in that area ***
     Many epidemics are caused by bacteria and viruses that breed in a particular enviornment like floods, slums. We will try to monitor various factors on the basis of which the detection of epidemic will be done.
+    
     "P.S :: This idea is just in thought process. It requires support and research to build up. "
