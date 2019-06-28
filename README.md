@@ -1,16 +1,6 @@
-# demo1
+*) This App comes with the feature to find the contact details of the Blood Donations Camp and Blood Banks running in your loality.
+*) *** We are plaaning to implement ML techniques to detect and find quarrantine measures for a particular outburst of an epidemic disease which will be useful in alerting people in that area ***
+*) *** We are planning to implement ML techniques to detect and find quarrantine measures for a particular outburst of an epidemic disease which will be useful in alerting people in that area ***
+    Many epidemics are caused by bacteria and viruses that breed in a particular enviornment like floods, slums. We will try to monitor various factors on the basis of which the detection of epidemic will be done.
 
-A new Flutter application.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+    "P.S :: This idea is just in thought process. It requires support and research to build up. "
