@@ -28,6 +28,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  url_launcher: ^5.0.3
+
 
 
 
