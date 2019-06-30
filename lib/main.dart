@@ -7,12 +7,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "antaragni",
+      title: "iMed",
       home: MyHomePage(),
 
       routes: <String, WidgetBuilder>{
         '/homepage' : (BuildContext context) => MyHomePage(),
-        '/doctor_page' : (BuildContext) =>  DoctorPage(),
+        '/doctor_page' : (BuildContext context) =>  DoctorPage(),
       }
     );
   }

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'common_scaffold.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'data.dart';
-import 'menuModel.dart';
-
 class DoctorPage extends StatelessWidget {
   Size deviceSize;
+  final DocumentSnapshot list;
 
+  DoctorPage({this.list});
 
-  String name = "saurabh";
-  String spec = "MBBS";
+  // String name = "Saurabh";
+  // String spec = "MBBS";
   String timing="10am-5pm";
   String phone = "24356";
   String email ="doctor1@email.com";
@@ -38,11 +38,11 @@ class DoctorPage extends StatelessWidget {
                 ),
               ),
               Text(
-                name,
+                list.data['docName'],
                 style: TextStyle(color: Colors.white, fontSize: 20.0),
               ),
               Text(
-                spec,
+                list.data['Spec'],
                 style: TextStyle(color: Colors.white),
               )
             ],
