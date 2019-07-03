@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:demo1/home_page.dart';
 import 'doctor_page.dart';
+import 'splash_screen.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -8,11 +9,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "iMed",
-      home: MyHomePage(),
+      home: SplashScreen(),
 
       routes: <String, WidgetBuilder>{
         '/homepage' : (BuildContext context) => MyHomePage(),
         '/doctor_page' : (BuildContext context) =>  DoctorPage(),
+        '/splashscreen' : (BuildContext context) => SplashScreen(),
       }
     );
   }
