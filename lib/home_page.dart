@@ -80,36 +80,39 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: FutureBuilder(future: getDoctor(),builder: (_, snapshot)
-      {
-        Widget newListTab;
-        if(snapshot.hasData) {
-           newListTab = SliverGrid(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount:2,
-              mainAxisSpacing: 10.0,
-              crossAxisSpacing: 10.0,
-              childAspectRatio: 1.0
-              ),
-              delegate:
-              SliverChildBuilderDelegate((BuildContext context, int index) {
-                return com(context,snapshot.data[index]);
-              }, childCount: snapshot.data.length));
-        } 
-        else {
-            newListTab = SliverToBoxAdapter(child: CircularProgressIndicator(),);
-        }
-        return CustomScrollView(
-        slivers: <Widget>[
-          appBar(),
-          newListTab
-        ],
-      );
-    }),
-    
-    drawer:sideBar(context)
-  
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        body: FutureBuilder(future: getDoctor(),builder: (_, snapshot)
+        {
+          Widget newListTab;
+          if(snapshot.hasData) {
+             newListTab = SliverGrid(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount:2,
+                mainAxisSpacing: 10.0,
+                crossAxisSpacing: 10.0,
+                childAspectRatio: 1.0
+                ),
+                delegate:
+                SliverChildBuilderDelegate((BuildContext context, int index) {
+                  return com(context,snapshot.data[index]);
+                }, childCount: snapshot.data.length));
+          }
+          else {
+              newListTab = SliverToBoxAdapter(child: CircularProgressIndicator(),);
+          }
+          return CustomScrollView(
+          slivers: <Widget>[
+            appBar(),
+            newListTab
+          ],
+        );
+      }),
+
+      drawer:sideBar(context)
+
+      ),
     );
   }
 }
