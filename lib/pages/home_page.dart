@@ -110,7 +110,7 @@ class HomePageState extends State<HomePage> {
                         icon: Icon(Icons.info_outline,
                             color: selectedInfo ? Colors.white : Colors.white70),
                         onPressed: () {
-                          Navigator.pushNamed(context, imedViewModel.selected.description);
+                          Navigator.pushNamed(context, imedViewModel.selected.sourceUrl);
                           },
                       ))),
                   Spacer(),

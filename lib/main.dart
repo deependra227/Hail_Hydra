@@ -4,7 +4,7 @@ import 'doctor_page.dart';
 import 'splash_screen.dart';
 import 'pages/home_page.dart';
 import 'viewmodels/imed_viewmodel.dart';
-
+import 'med.dart';
 void main() async {
   await imedViewModel.load();
   runApp(MyApp());
@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
         '/doctor_page' : (BuildContext context) =>  DoctorPage(),
         '/splashscreen' : (BuildContext context) => SplashScreen(),
         '/homepage' : (BuildContext context) => HomePage(),
+        '/medlist' : (BuildContext context) => MedList(),
       }
     );
   }
