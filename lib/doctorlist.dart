@@ -80,9 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async => false,
-      child: Scaffold(
+    return  Scaffold(
         body: FutureBuilder(future: getDoctor(),builder: (_, snapshot)
         {
           Widget newListTab;
@@ -112,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
       drawer:sideBar(context)
 
-      ),
+
     );
   }
 }

@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:demo1/home_page.dart';
+import 'doctorlist.dart';
 import 'doctor_page.dart';
 import 'splash_screen.dart';
-void main() => runApp(MyApp());
+import 'pages/home_page.dart';
+import 'viewmodels/imed_viewmodel.dart';
 
+void main() async {
+  await imedViewModel.load();
+  runApp(MyApp());
+}
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -12,9 +17,10 @@ class MyApp extends StatelessWidget {
       home: SplashScreen(),
 
       routes: <String, WidgetBuilder>{
-        '/homepage' : (BuildContext context) => MyHomePage(),
+        '/doctorlist' : (BuildContext context) => MyHomePage(),
         '/doctor_page' : (BuildContext context) =>  DoctorPage(),
         '/splashscreen' : (BuildContext context) => SplashScreen(),
+        '/homepage' : (BuildContext context) => HomePage(),
       }
     );
   }
