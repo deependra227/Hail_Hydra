@@ -107,8 +107,8 @@ class HomePageState extends State<HomePage> {
                   Padding(
                       padding: EdgeInsets.only(top: 16.0),
                       child: frostedIconButton(IconButton(
-                        icon: Icon(Icons.info_outline,
-                            color: selectedInfo ? Colors.white : Colors.white70),
+                        icon: Icon(Icons.fiber_smart_record,
+                            color: selectedInfo ? Colors.white : Colors.red),
                         onPressed: () {
                           Navigator.pushNamed(context, imedViewModel.selected.sourceUrl);
                           },
