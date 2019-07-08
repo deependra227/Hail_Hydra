@@ -10,9 +10,9 @@ class DoctorPage extends StatelessWidget {
   final DocumentSnapshot list;
   DoctorPage({this.list});
 
-  String timing="10am-5pm";
-  String phone = "24356";
-  String email ="doctor1@email.com";
+  // String timing="10am-5pm";
+  // // String phone = "24356";
+  // String /email ="doctor1@email.com";
 
   Widget profileHeader() => Container(
     height: deviceSize.height / 5,
@@ -64,7 +64,7 @@ class DoctorPage extends StatelessWidget {
       children: <Widget>[
         new IconButton(
           icon: new Icon(Icons.call),
-          onPressed: () => launch("tel://"+"21213123123"),
+          onPressed: () => launch("tel://"+list.data['phone']),
         ),
         Expanded(
             child: Padding(
@@ -73,9 +73,9 @@ class DoctorPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(phone),
+                  Text(list.data['phone']),
                   SizedBox(height: 5.0),
-                  Text(email)
+                  Text(list.data['mail'])
                 ],
               ),
             ))
@@ -100,7 +100,7 @@ class DoctorPage extends StatelessWidget {
                 "Timing:  ",
                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
               ),
-              Text(timing,style: TextStyle(fontSize: 18.0)),
+              Text(list.data['timing'],style: TextStyle(fontSize: 18.0)),
             ],
           )
         ]
@@ -119,11 +119,19 @@ class DoctorPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               SizedBox(height: 10.0),
-              Text(
-                "Address:  ",
-                 style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
+              Text("Address:  ",
+                           style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
+                        ),
+               Container (
+                padding: const EdgeInsets.all(0.0),
+                width: 250.0,
+                child: new Column (
+                  children: <Widget>[
+                    
+                        Text(list.data['address'],style: TextStyle(fontSize: 18.0)),],
+                ),
               ),
-              Text("nbdjksbdkdh",style: TextStyle(fontSize: 18.0)),
+              SizedBox(height: 10.0,)
             ],
           )
         ]
