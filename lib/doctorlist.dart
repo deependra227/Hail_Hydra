@@ -13,6 +13,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   
   var currentLocation ;
+  List<DocumentSnapshot> doctor = [];
+  double distance;
   Future getDoctor() async {
     var firestore = Firestore.instance;
       QuerySnapshot qn = await firestore.collection('Doctors').getDocuments();
@@ -76,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
     pinned: true,
     elevation: 10.0,
     forceElevated: true,
-    expandedHeight: 150.0,
+    expandedHeight: 20.0,
     flexibleSpace: FlexibleSpaceBar(
       centerTitle: false,
       // background: Container(
@@ -98,7 +100,23 @@ class _MyHomePageState extends State<MyHomePage> {
         body: FutureBuilder(future: getDoctor(),builder: (_, snapshot)
         {
           Widget newListTab;
-          if(snapshot.hasData) {
+          if(snapshot.hasData && currentLocation!=null) {
+
+
+            for (int index = snapshot.data.length - 1; index >= 0; --index){     
+               Geolocator().distanceBetween(currentLocation.latitude, currentLocation.longitude, snapshot.data[index].data['location'].latitude, snapshot.data[index].data['location'].longitude)
+               .then((dist){
+                   distance = dist;
+                   print(distance);
+                   if(dist/1000 > 5)
+                    doctor.add(snapshot.data[index]);
+                 });              
+            }
+            print(doctor.length);
+
+
+
+
              newListTab = SliverGrid(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount:2,
@@ -108,8 +126,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 delegate:
                 SliverChildBuilderDelegate((BuildContext context, int index) {
-                  return com(context,snapshot.data[index]);
-                }, childCount: snapshot.data.length));
+                  return com(context,doctor[index]);
+                }, childCount: doctor.length));
           }
           else {
               newListTab = SliverToBoxAdapter(child: CircularProgressIndicator(),);
