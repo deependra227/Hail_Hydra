@@ -8,9 +8,10 @@ import 'package:flutter/material.dart';
           children: <Widget>[
             UserAccountsDrawerHeader(
               accountName: Text('Options to be here'),
+
               currentAccountPicture: CircleAvatar(
-                backgroundColor: Colors.brown,
-                child: new Text("P"),
+                backgroundColor: Colors.green,
+                child: new Text("iMed"),
               ),
 
               decoration: BoxDecoration(
@@ -18,21 +19,40 @@ import 'package:flutter/material.dart';
               ),
             ),
             ListTile(
-              title: Text('Home'),
-              leading: Icon(Icons.home),
-              onTap: () {
-              // Update the state of the app.
-              // ...
-              Navigator.pop(context);
+              title: Text('Doctors near me'),
+              leading: Icon(Icons.navigate_next),
+                onTap: () {
+              Navigator.pushReplacementNamed(context, '/doctorlist');
+//              Navigator.pop(context);
               },
             ),
             ListTile(
-              title: Text('Page'),
+              title: Text('Medicine'),
               leading: Icon(Icons.navigate_next),
               onTap: () {
                 // Update the state of the app.
                 // ...
-                Navigator.pop(context);
+                Navigator.pushReplacementNamed(context, '/medlist');
+
+              },
+            ),
+            ListTile(
+              title: Text('Blood'),
+              leading: Icon(Icons.navigate_next),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+                Navigator.pushReplacementNamed(context, '/doctorlist');
+
+              },
+            ),
+            ListTile(
+              title: Text('Blog of the day'),
+              leading: Icon(Icons.navigate_next),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+                Navigator.pushReplacementNamed(context, '/doctorlist');
 
               },
             ),
@@ -40,4 +60,4 @@ import 'package:flutter/material.dart';
         ),
         elevation: 16.0,
      );
-  }
+}
