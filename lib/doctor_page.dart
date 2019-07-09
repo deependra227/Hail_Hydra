@@ -1,18 +1,33 @@
 import 'package:flutter/material.dart';
 import 'common_scaffold.dart';
-import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class DoctorPage extends StatelessWidget {
-  Size deviceSize;
+class DoctorPage extends StatefulWidget {
   final DocumentSnapshot list;
   DoctorPage({this.list});
 
-  // String timing="10am-5pm";
-  // // String phone = "24356";
-  // String /email ="doctor1@email.com";
+  @override
+  _DoctorPageState createState() => _DoctorPageState();
+}
+
+class _DoctorPageState extends State<DoctorPage> {
+  Size deviceSize;
+
+  List<Marker> docMarker = [];
+
+  @override
+  void initState() {
+    super.initState();
+    docMarker.add(Marker(
+      markerId: MarkerId('Doctor'),
+      draggable: false,
+      position: LatLng(widget.list.data['location'].latitude, widget.list.data['location'].longitude),
+      
+      )
+    );
+  }
 
   Widget profileHeader() => Container(
     height: deviceSize.height / 5,
@@ -38,11 +53,11 @@ class DoctorPage extends StatelessWidget {
                   ),
                 ),
               Text(
-                list.data['docName'],
+                widget.list.data['docName'],
                 style: TextStyle(color: Colors.white, fontSize: 20.0),
               ),
               Text(
-                list.data['Spec'],
+                widget.list.data['Spec'],
                 style: TextStyle(color: Colors.white),
               )
             ],
@@ -64,7 +79,7 @@ class DoctorPage extends StatelessWidget {
       children: <Widget>[
         new IconButton(
           icon: new Icon(Icons.call),
-          onPressed: () => launch("tel://"+list.data['phone']),
+          onPressed: () => launch("tel://"+widget.list.data['phone']),
         ),
         Expanded(
             child: Padding(
@@ -73,9 +88,9 @@ class DoctorPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(list.data['phone']),
+                  Text(widget.list.data['phone']),
                   SizedBox(height: 5.0),
-                  Text(list.data['mail'])
+                  Text(widget.list.data['mail'])
                 ],
               ),
             ))
@@ -85,7 +100,7 @@ class DoctorPage extends StatelessWidget {
     ),
   );
   }
-  
+
   Widget timingCard(){
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 5.0),
@@ -100,15 +115,13 @@ class DoctorPage extends StatelessWidget {
                 "Timing:  ",
                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
               ),
-              Text(list.data['timing'],style: TextStyle(fontSize: 18.0)),
+              Text(widget.list.data['timing'],style: TextStyle(fontSize: 18.0)),
             ],
           )
         ]
       ));
     }
 
-
-  
   Widget addressCard(){
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 5.0),
@@ -119,16 +132,13 @@ class DoctorPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               SizedBox(height: 10.0),
-              Text("Address:  ",
-                           style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
-                        ),
+              Text("Address:  ", style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0)),
                Container (
                 padding: const EdgeInsets.all(0.0),
                 width: 250.0,
                 child: new Column (
                   children: <Widget>[
-                    
-                        Text(list.data['address'],style: TextStyle(fontSize: 18.0)),],
+                    Text(widget.list.data['address'],style: TextStyle(fontSize: 18.0)),],
                 ),
               ),
               SizedBox(height: 10.0,)
@@ -138,13 +148,7 @@ class DoctorPage extends StatelessWidget {
       ));
     }
 
-  Completer<GoogleMapController> _controller = Completer();
-
-  static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
-
+  GoogleMapController myController;
 
   Widget googleCard() => Container(
     width: double.infinity,
@@ -161,12 +165,13 @@ class DoctorPage extends StatelessWidget {
               child:GoogleMap(
                 mapType: MapType.normal,
                 initialCameraPosition: CameraPosition(
-                  target: LatLng(list.data['location'].latitude, list.data['location'].longitude),
+                  target: LatLng(widget.list.data['location'].latitude, widget.list.data['location'].longitude),
                   zoom: 14.4746,
                 ),
                 onMapCreated: (GoogleMapController controller) {
-                  _controller.complete(controller);
+                  myController = controller;
                 },
+                markers: Set.from(docMarker),
               ),
             ),
           ),
@@ -174,6 +179,7 @@ class DoctorPage extends StatelessWidget {
       ),
     ),
   );
+
   Widget bodyData() => SingleChildScrollView(
     child: Column(
       children: <Widget>[

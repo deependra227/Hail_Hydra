@@ -6,7 +6,7 @@ class imedViewModel {
   static List<imed> imeds = new List<imed>();
   static imed selected = new imed(); 
 
-  static Future load() async{
+  static Future load() async{ 
     List jsonParsed = json.decode(await getimeds());
     imeds = jsonParsed.map((i) => new imed.fromJson(i)).toList();
     selected = imeds[0];
