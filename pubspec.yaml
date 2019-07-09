@@ -19,6 +19,9 @@ environment:
 dependencies:
   folding_cell: "^0.1.2"
   cloud_firestore: ^0.12.5+2
+  google_maps_flutter:
+  geoflutterfire: ^2.0.2
+  location: 1.4.1
   flutter:
     sdk: flutter
 
