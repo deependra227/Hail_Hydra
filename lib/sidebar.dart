@@ -7,11 +7,11 @@ import 'package:flutter/material.dart';
 
           children: <Widget>[
             UserAccountsDrawerHeader(
-              accountName: Text('Options to be here'),
+              
 
               currentAccountPicture: CircleAvatar(
-                backgroundColor: Colors.green,
-                child: new Text("iMed"),
+               backgroundImage: ExactAssetImage('assets/logo.png'),
+               child: InkWell(onTap: () => Navigator.pushNamed(context, '/homepage'),),
               ),
 
               decoration: BoxDecoration(
