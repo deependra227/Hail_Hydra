@@ -2,7 +2,22 @@ import 'package:flutter/material.dart';
 import 'common_scaffold.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:url_launcher/url_launcher.dart';
+<<<<<<< Updated upstream
 class DoctorPage extends StatelessWidget {
+=======
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+
+class DoctorPage extends StatefulWidget {
+  final DocumentSnapshot list;
+  DoctorPage({this.list});
+
+  @override
+  _DoctorPageState createState() => _DoctorPageState();
+}
+
+class _DoctorPageState extends State<DoctorPage> {
+>>>>>>> Stashed changes
   Size deviceSize;
   final DocumentSnapshot list;
 
