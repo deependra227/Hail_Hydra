@@ -89,12 +89,7 @@ class HomePageState extends State<HomePage> {
                         )),
                   )),
               onTap: () {
-                if (!displayText) {
-                  setState(() {
-                    displayText = true;
-                    selectedInfo = false;
-                  });
-                }
+                Navigator.pushNamed(context, imedViewModel.selected.sourceUrl);
               },
             ),
             Padding(
@@ -104,15 +99,15 @@ class HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
                   Spacer(),
-                  Padding(
-                      padding: EdgeInsets.only(top: 16.0),
-                      child: frostedIconButton(IconButton(
-                        icon: Icon(Icons.info_outline,
-                            color: selectedInfo ? Colors.white : Colors.white70),
-                        onPressed: () {
-                          Navigator.pushNamed(context, imedViewModel.selected.sourceUrl);
-                          },
-                      ))),
+//                  Padding(
+//                      padding: EdgeInsets.only(top: 16.0),
+//                      child: frostedIconButton(IconButton(
+//                        icon: Icon(Icons.info_outline,
+//                            color: selectedInfo ? Colors.white : Colors.white70),
+//                        onPressed: () {
+//                          Navigator.pushNamed(context, imedViewModel.selected.sourceUrl);
+//                          },
+//                      ))),
                   Spacer(),
 
                   Container(
