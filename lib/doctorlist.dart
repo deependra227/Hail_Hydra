@@ -2,6 +2,7 @@ import 'package:demo1/doctor_page.dart';
 import 'package:demo1/sidebar.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:geolocator/geolocator.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -11,12 +12,25 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   
+  var currentLocation ;
   Future getDoctor() async {
     var firestore = Firestore.instance;
       QuerySnapshot qn = await firestore.collection('Doctors').getDocuments();
       return qn.documents;
   }
+
+  void initState(){
+    super.initState();
+    Geolocator().getCurrentPosition().then((currloc){
+      setState((){
+        print(currentLocation);
+        currentLocation = currloc;
+        print(currentLocation.latitude);
+      }); 
+    }); 
+  }
   
+
   Widget com(buildContext,DocumentSnapshot list) => InkWell(
     onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorPage(list : list,))),
     splashColor: Colors.blue,
@@ -114,3 +128,4 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+

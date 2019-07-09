@@ -28,6 +28,7 @@ class _DoctorPageState extends State<DoctorPage> {
       )
     );
   }
+  
 
   Widget profileHeader() => Container(
     height: deviceSize.height / 5,
