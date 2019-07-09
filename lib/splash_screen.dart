@@ -39,9 +39,9 @@ class _SplashScreenState extends State<SplashScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       CircleAvatar(
-                        backgroundColor: Colors.green,
+                        
                         radius: 50.0,
-                        child: Text('iMed'),
+                        backgroundImage: ExactAssetImage('assets/logo.png'),
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: 10.0),
