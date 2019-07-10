@@ -17,7 +17,8 @@ class _MyHomePageState extends State<MyHomePage> {
   List<DocumentSnapshot> doctor = [];
   double distance;
   Future _info;
-
+  int count = 1;
+  
   Future getDoctor() async {
     var firestore = Firestore.instance;
       QuerySnapshot qn = await firestore.collection('Doctors').getDocuments();
@@ -33,6 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
       }); 
     }); 
     _info = getDoctor();
+   
   }
   
 
@@ -45,7 +47,11 @@ class _MyHomePageState extends State<MyHomePage> {
       child:Material(
         child:InkWell(
 
-    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorPage(list : list,))),
+    onTap: (){
+      doctor = [];
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorPage(list : list,)));
+      print("After resetting : " + doctor.length.toString());
+    },
     splashColor: Colors.blue,
     child: Card(
       clipBehavior: Clip.antiAlias,
@@ -53,13 +59,12 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          // Image.network(list.data['photo'], alignment: Alignment.centerLeft,),
           new Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.all(20),
-                child: CircleAvatar(backgroundImage: NetworkImage(list.data['photo']),radius: 50.0,),
+                child: CircleAvatar(backgroundImage: NetworkImage(list.data['img']),radius: 45.0,),
               ),
               Expanded(child:Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[menuData(list)],) ,)
               
@@ -76,19 +81,10 @@ class _MyHomePageState extends State<MyHomePage> {
     // title: list.data['docName'],
   );
 
-// List<Menu> menu;
   static List<Color> kitGradients = [
     Colors.blueGrey.shade800,
     Colors.black87,
   ];
-  // Widget menuColor() => new Container(
-  //   decoration: BoxDecoration(boxShadow: <BoxShadow>[
-  //     BoxShadow(
-  //       color: Colors.black.withOpacity(0.8),
-  //       blurRadius: 5.0,
-  //     ),
-  //   ]),
-  // );
 
   Widget menuData(DocumentSnapshot list) => Column(
     mainAxisAlignment: MainAxisAlignment.start,
@@ -111,8 +107,6 @@ class _MyHomePageState extends State<MyHomePage> {
     backgroundColor: Colors.black,
     // pinned: true,
     elevation: 10.0,
-    // forceElevated: true,
-    // expandedHeight: 20.0,
     flexibleSpace: FlexibleSpaceBar(
       centerTitle: false,
       // background: Container(
@@ -141,32 +135,31 @@ class _MyHomePageState extends State<MyHomePage> {
 
       appBar: appBar(),
       
-
         body: FutureBuilder(future: _info,builder: (_, snapshot)
 
         {
           Widget newListTab;
           if(snapshot.hasData && currentLocation != null) {
-
-
-            for (int index = snapshot.data.length - 1; index >= 0; --index){     
-             
-              distance = calculateDistance(currentLocation.latitude, currentLocation.longitude, snapshot.data[index].data['location'].latitude, snapshot.data[index].data['location'].longitude);          
-              print("Distance is : " + distance.toString());
-              if (distance < 5)
-                doctor.add(snapshot.data[index]);
+            if (count & 1 != 0){
+              print("Current value of count is: " + count.toString());
+              for (int index = snapshot.data.length - 1; index >= 0; --index){     
+               print("Ab Chala ");
+                distance = calculateDistance(currentLocation.latitude, currentLocation.longitude, snapshot.data[index].data['location'].latitude, snapshot.data[index].data['location'].longitude);          
+                print("Distance is : " + distance.toString());
+                if (distance < 5)
+                  doctor.add(snapshot.data[index]);
+              }
             }
+            ++count;
+             print("NOw the Current value of count is: " + count.toString());
             print(doctor.length);
-
-
-
-
              newListTab = ListView.builder(
                itemCount: doctor.length,
                itemBuilder: (BuildContext context,int index){
                  return com(context, doctor[index]);
                }
              );
+
           }
           else {
               newListTab =Column(
@@ -180,18 +173,14 @@ class _MyHomePageState extends State<MyHomePage> {
               );
           }
           return newListTab;
-          
-        //   slivers: <Widget>[
-        //     appBar(),
-        //     newListTab
-        //   ],
-        // );
       }),
 
       drawer:sideBar(context)
-
-
     );
   }
 }
+
+
+
+
 
