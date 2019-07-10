@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:folding_cell/folding_cell.dart';
 import 'sidebar.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 class MedList extends StatelessWidget {
+  Future getMed() async {
+    var firestore = Firestore.instance;
+      QuerySnapshot qn = await firestore.collection('Medicine').getDocuments();
+      return qn.documents;
+  }
 
   @override
 
@@ -15,15 +20,17 @@ class MedList extends StatelessWidget {
         title: Text("Medicine"),
         backgroundColor: Colors.black,
       ),
-      body: Container(
-
-        color: Color(0xFF2e282a),
-        child: ListView.builder(
-            itemCount: 4,
+      body: FutureBuilder(future: getMed(),builder:(_,snapshot)
+      {
+        Widget newList;
+        if(snapshot.hasData){
+          
+          newList=ListView.builder(
+            itemCount: snapshot.data.length,
             itemBuilder: (context, index) {
               return SimpleFoldingCell(
-                  frontWidget: _buildFrontWidget(index),
-                  innerTopWidget: _buildInnerTopWidget(index),
+                  frontWidget: _buildFrontWidget(snapshot.data[index],index),
+                  innerTopWidget: _buildInnerTopWidget(snapshot.data[index],index),
                   innerBottomWidget: _buildInnerBottomWidget(index),
                   cellSize: Size(MediaQuery.of(context).size.width, 125),
                   padding: EdgeInsets.all(15),
@@ -31,21 +38,46 @@ class MedList extends StatelessWidget {
                   borderRadius: 10,
                   onOpen: () => print('$index cell opened'),
                   onClose: () => print('$index cell closed'));
-            }),
-      ),
+            }
+            );
+        }
+        else{
+          newList =Column(
+                
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    CircularProgressIndicator(),
+                    Padding(
+                      padding: EdgeInsets.only( top:10.0,left: 500.0),
+                    )]
+              );
+        }
+          return newList;
+      })
     );
   }
 
-  Widget _buildFrontWidget(int index) {
+
+
+// Container(
+
+//         color: Color(0xFF2e282a),
+//         child: 
+//       ),
+
+
+
+
+  Widget _buildFrontWidget(DocumentSnapshot med,int index) {
     return Builder(
       builder: (BuildContext context) {
         return Container(
-            color: Color(0xFFffcd3c),
+            color: Colors.lightBlueAccent,
             alignment: Alignment.center,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text("CARD - $index",
+                Text(med.data['name'],
                     style: TextStyle(
                         color: Color(0xFF2e282a),
                         fontFamily: 'OpenSans',
@@ -71,11 +103,11 @@ class MedList extends StatelessWidget {
     );
   }
 
-  Widget _buildInnerTopWidget(int index) {
+  Widget _buildInnerTopWidget(DocumentSnapshot med,int index) {
     return Container(
-        color: Color(0xFFff9234),
+        color: Colors.blueAccent,
         alignment: Alignment.center,
-        child: Text("TITLE - $index",
+        child: Text(med.data['name'],
             style: TextStyle(
                 color: Color(0xFF2e282a),
                 fontFamily: 'OpenSans',

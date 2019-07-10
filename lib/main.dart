@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "iMed",
       home: SplashScreen(),
+      debugShowCheckedModeBanner: false,
 
       routes: <String, WidgetBuilder>{
         '/doctorlist' : (BuildContext context) => MyHomePage(),
