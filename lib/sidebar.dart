@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 
               currentAccountPicture: CircleAvatar(
                backgroundImage: ExactAssetImage('assets/logo.png'),
-               child: InkWell(onTap: () => Navigator.pushNamed(context, '/homepage'),),
+               child: InkWell(onTap: () => Navigator.of(context).popUntil(ModalRoute.withName('/homepage'))),
               ),
 
               decoration: BoxDecoration(

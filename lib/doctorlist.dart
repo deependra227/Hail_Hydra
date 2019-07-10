@@ -2,6 +2,7 @@ import 'package:demo1/doctor_page.dart';
 import 'package:demo1/sidebar.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dart:math' show cos, sqrt, asin;
 
@@ -35,7 +36,15 @@ class _MyHomePageState extends State<MyHomePage> {
   }
   
 
-  Widget com(buildContext,DocumentSnapshot list) => InkWell(
+  Widget com(buildContext,DocumentSnapshot list) => Center(
+    child : AnimatedContainer(
+      duration: Duration(seconds: 2),
+      height :MediaQuery.of(context).size.height / 5.5,
+      width : MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(gradient: LinearGradient(colors: kitGradients)),
+      child:Material(
+        child:InkWell(
+
     onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorPage(list : list,))),
     splashColor: Colors.blue,
     child: Card(
@@ -44,18 +53,34 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          Image.network(list.data['img'], fit: BoxFit.cover,),
-          menuData(list)
+          // Image.network(list.data['photo'], alignment: Alignment.centerLeft,),
+          new Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: CircleAvatar(backgroundImage: NetworkImage(list.data['photo']),radius: 50.0,),
+              ),
+              Expanded(child:Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[menuData(list)],) ,)
+              
+            
+            ],
+          ),
+          
         ],
       ),
     ),
+        ),
+      ),
+    ),
+    // title: list.data['docName'],
   );
 
 // List<Menu> menu;
-//   static List<Color> kitGradients = [
-//     Colors.blueGrey.shade800,
-//     Colors.black87,
-//   ];
+  static List<Color> kitGradients = [
+    Colors.blueGrey.shade800,
+    Colors.black87,
+  ];
   // Widget menuColor() => new Container(
   //   decoration: BoxDecoration(boxShadow: <BoxShadow>[
   //     BoxShadow(
@@ -66,21 +91,28 @@ class _MyHomePageState extends State<MyHomePage> {
   // );
 
   Widget menuData(DocumentSnapshot list) => Column(
-    mainAxisAlignment: MainAxisAlignment.center,
+    mainAxisAlignment: MainAxisAlignment.start,
     children: <Widget>[
+      SizedBox(height: 40.0,),
       Text(
-        list.data['docName'],
-        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+       'Name : '+ list.data['docName'],
+        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,fontSize: 20.0),
+      ),
+      SizedBox(height: 10.0,),
+      Text(
+       'Specialization  : '+ list.data['Spec'],
+        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
       )
+      
     ],
   );
 
-  Widget appBar() => SliverAppBar(
+  Widget appBar() =>AppBar(
     backgroundColor: Colors.black,
-    pinned: true,
+    // pinned: true,
     elevation: 10.0,
-    forceElevated: true,
-    expandedHeight: 20.0,
+    // forceElevated: true,
+    // expandedHeight: 20.0,
     flexibleSpace: FlexibleSpaceBar(
       centerTitle: false,
       // background: Container(
@@ -106,7 +138,12 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
+
+      appBar: appBar(),
+      
+
         body: FutureBuilder(future: _info,builder: (_, snapshot)
+
         {
           Widget newListTab;
           if(snapshot.hasData && currentLocation != null) {
@@ -124,27 +161,31 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
 
-             newListTab = SliverGrid(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount:2,
-                mainAxisSpacing: 10.0,
-                crossAxisSpacing: 10.0,
-                childAspectRatio: 1.0
-                ),
-                delegate:
-                SliverChildBuilderDelegate((BuildContext context, int index) {
-                  return com(context,doctor[index]);
-                }, childCount: doctor.length));
+             newListTab = ListView.builder(
+               itemCount: doctor.length,
+               itemBuilder: (BuildContext context,int index){
+                 return com(context, doctor[index]);
+               }
+             );
           }
           else {
-              newListTab = SliverToBoxAdapter(child: CircularProgressIndicator(),);
+              newListTab =Column(
+                
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    CircularProgressIndicator(),
+                    Padding(
+                      padding: EdgeInsets.only( top:10.0,left: 500.0),
+                    )]
+              );
           }
-          return CustomScrollView(
-          slivers: <Widget>[
-            appBar(),
-            newListTab
-          ],
-        );
+          return newListTab;
+          
+        //   slivers: <Widget>[
+        //     appBar(),
+        //     newListTab
+        //   ],
+        // );
       }),
 
       drawer:sideBar(context)
