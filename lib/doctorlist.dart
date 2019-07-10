@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
+import 'dart:math' show cos, sqrt, asin;
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -12,10 +13,11 @@ class MyHomePage extends StatefulWidget {
 
 
 class _MyHomePageState extends State<MyHomePage> {
-  
   var currentLocation ;
   List<DocumentSnapshot> doctor = [];
   double distance;
+  Future _info;
+
   Future getDoctor() async {
     var firestore = Firestore.instance;
       QuerySnapshot qn = await firestore.collection('Doctors').getDocuments();
@@ -28,9 +30,9 @@ class _MyHomePageState extends State<MyHomePage> {
       setState((){
         print(currentLocation);
         currentLocation = currloc;
-        print(currentLocation.latitude);
       }); 
     }); 
+    _info = getDoctor();
   }
   
 
@@ -124,26 +126,35 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     ),
   );
-
+  double calculateDistance(lat1, lon1, lat2, lon2){
+    var p = 0.017453292519943295;
+    var c = cos;
+    var a = 0.5 - c((lat2 - lat1) * p)/2 + 
+          c(lat1 * p) * c(lat2 * p) * 
+          (1 - c((lon2 - lon1) * p))/2;
+    return 12742 * asin(sqrt(a));
+  }
 
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
+
       appBar: appBar(),
-        body: FutureBuilder(future: getDoctor(),builder: (_, snapshot)
+      
+
+        body: FutureBuilder(future: _info,builder: (_, snapshot)
+
         {
           Widget newListTab;
-          if(snapshot.hasData && currentLocation!=null) {
+          if(snapshot.hasData && currentLocation != null) {
 
 
             for (int index = snapshot.data.length - 1; index >= 0; --index){     
-               Geolocator().distanceBetween(currentLocation.latitude, currentLocation.longitude, snapshot.data[index].data['location'].latitude, snapshot.data[index].data['location'].longitude)
-               .then((dist){
-                   distance = dist;
-                   print(distance);
-                   if(dist/1000 > 5)
-                    doctor.add(snapshot.data[index]);
-                 });              
+             
+              distance = calculateDistance(currentLocation.latitude, currentLocation.longitude, snapshot.data[index].data['location'].latitude, snapshot.data[index].data['location'].longitude);          
+              print("Distance is : " + distance.toString());
+              if (distance < 5)
+                doctor.add(snapshot.data[index]);
             }
             print(doctor.length);
 
