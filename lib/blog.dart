@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'sidebar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Blog extends StatefulWidget {
   @override
@@ -8,30 +9,30 @@ class Blog extends StatefulWidget {
 
 class _BlogState extends State<Blog> {
 
-String blogtitle ="I Would Rather Have a Day but 15 Minutes Will Do";
-String blogcontent ="Summer is officially here this week, along with memories of those summer vacations and visions of future quests into the wild.";
-String bloggername="Tim";
-String bloggerImg;
+  Future getBlog () async {
+    var firestore = Firestore.instance;
+      QuerySnapshot qn = await firestore.collection('Blog').getDocuments();
+      return qn.documents;
+  }
 
-
-
-
-Widget title() => Container(
+Widget title(DocumentSnapshot list) => Container(
   padding: const EdgeInsets.all(0.0) ,
   child:Card(
     child:Stack(
       alignment: Alignment.center,
       children: <Widget>[
-        Image.asset('assets/blog.png',fit: BoxFit.cover,),
+        Image.network(list.data['img']),
+        
          Column(
           //  mainAxisAlignment: MainAxisAlignment.end,
           //  crossAxisAlignment: CrossAxisAlignment.,
            children: <Widget>[
              
-           Text(blogtitle,
+           Text(list.data['title'],
             style: TextStyle(
             fontSize: 30.0,
             fontWeight: FontWeight.bold,
+            color: Colors.white,
           
     ),
     textAlign: TextAlign.center,
@@ -41,28 +42,48 @@ Widget title() => Container(
       ], 
      )
      )
+     
 );
 
 
 
-Widget blogtext() =>Container(
-  padding: const EdgeInsets.only(left:30.0,right: 30.0) ,
+Widget blogtext(DocumentSnapshot list) =>Container(
+  padding: const EdgeInsets.only(left:20.0,right: 20.0) ,
   child:Column(
   mainAxisAlignment: MainAxisAlignment.center,
   children: <Widget>[
-       Text(blogcontent,
-       style: TextStyle(fontSize: 16.0),)
+        SizedBox(height: 20.0,),
+       Text(list.data['content'],
+       style: TextStyle(fontSize: 16.0),
+       textAlign: TextAlign.justify,
+       )
+       ,
+       SizedBox(height: 10.0,),
+
+       Text(list.data['content'],
+       style: TextStyle(fontSize: 16.0),
+       textAlign: TextAlign.justify,),
+
+       SizedBox(height: 10.0,),
+
+       Text(list.data['content'],
+       style: TextStyle(fontSize: 16.0),
+       textAlign: TextAlign.justify,),
   ],
 )
 );
 
-Widget blogger()=> Column(
+Widget blogger(DocumentSnapshot list)=> Column(
   children: <Widget>[
+    SizedBox(height: 20.0,),
     CircleAvatar(
-      // backgroundImage: NetworkImage(bloggerImg)  ,
-      radius: 30.0,
+      backgroundImage: NetworkImage(list.data['photo'])  ,
+      radius: 40.0,
     ),
-    Text(bloggername)
+    SizedBox(height: 5.0,),
+    Text('~'+list.data['name'],
+    style: TextStyle(fontSize: 16.0),),
+    SizedBox(height: 20.0,),
   ],
 );
 
@@ -74,14 +95,36 @@ Widget blogger()=> Column(
         title: Text("Blog of the day"),
         backgroundColor: Colors.black,
       ),
-      body:Column(
-        children: <Widget>[
-          title(),
-          blogtext(),
-          blogger(),
+      body:FutureBuilder(future: getBlog(),builder: (_,snapshot){
+        Widget page;
+        if(snapshot.hasData){
+          page=SingleChildScrollView(
+          
+          child : Column(
+          children: <Widget>[
+          title(snapshot.data[0]),
+          blogtext(snapshot.data[0]),
+          blogger(snapshot.data[0]),
+          ],
+        ),
+          );
+        }
+        else{
+            page =Column(
+                
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    CircularProgressIndicator(),
+                    Padding(
+                      padding: EdgeInsets.only( top:10.0,left: 500.0),
+                    )]
+              );
 
-        ],
-      )
+        }
+        return page;
+      })
     );
   }
 }
+
+
