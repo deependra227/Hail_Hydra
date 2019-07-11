@@ -3,6 +3,7 @@ import 'common_scaffold.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class DoctorPage extends StatefulWidget {
   final DocumentSnapshot list;
@@ -49,7 +50,7 @@ class _DoctorPageState extends State<DoctorPage> {
                   border: Border.all(width: 2.0, color: Colors.white)),
                   child: CircleAvatar(
                     radius: 40.0,
-                    backgroundImage: NetworkImage(
+                    backgroundImage: CachedNetworkImageProvider(
                       'https://upload.wikimedia.org/wikipedia/commons/5/53/Wikipedia-logo-en-big.png'),
                   ),
                 ),

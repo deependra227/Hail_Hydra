@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
 import 'package:demo1/sidebar.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 class BloodCamp extends StatefulWidget {
   BloodCamp({Key key, this.title}) : super(key: key);
 
@@ -206,7 +207,7 @@ class _BloodCampState extends State<BloodCamp> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Image.network(list.data['img'])
+              CachedNetworkImage(imageUrl: list.data['img'],)
             ],
           )
         ),

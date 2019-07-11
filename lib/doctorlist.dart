@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dart:math' show cos, sqrt, asin;
-
+import 'package:cached_network_image/cached_network_image.dart';
 class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.all(20),
-                child: CircleAvatar(backgroundImage: NetworkImage(list.data['img']),radius: 45.0,),
+                child: CircleAvatar(backgroundImage: CachedNetworkImageProvider(list.data['img']),radius: 45.0,),
               ),
               Expanded(child:Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[menuData(list)],) ,)
               
