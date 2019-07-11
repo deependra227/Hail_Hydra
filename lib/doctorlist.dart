@@ -146,7 +146,7 @@ class _MyHomePageState extends State<MyHomePage> {
                print("Ab Chala ");
                 distance = calculateDistance(currentLocation.latitude, currentLocation.longitude, snapshot.data[index].data['location'].latitude, snapshot.data[index].data['location'].longitude);          
                 print("Distance is : " + distance.toString());
-                if (distance < 5)
+                if (distance < 10)
                   doctor.add(snapshot.data[index]);
               }
             }
@@ -179,4 +179,8 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+
+
+
 
