@@ -6,6 +6,7 @@ import 'pages/home_page.dart';
 import 'viewmodels/imed_viewmodel.dart';
 import 'med.dart';
 import 'blog.dart';
+import 'camp page/dashboard_screen.dart';
 void main() async {
   await imedViewModel.load();
   runApp(MyApp());
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         '/homepage' : (BuildContext context) => HomePage(),
         '/medlist' : (BuildContext context) => MedList(),
         '/blog' : (BuildContext context) => Blog(),
+        '/bloodcamp' :(BuildContext context) => BloodCamp(),
       }
     );
   }

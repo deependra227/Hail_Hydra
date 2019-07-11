@@ -42,7 +42,7 @@ import 'package:flutter/material.dart';
               onTap: () {
                 // Update the state of the app.
                 // ...
-                Navigator.pushReplacementNamed(context, '/doctorlist');
+                Navigator.pushReplacementNamed(context, '/bloodcamp');
 
               },
             ),

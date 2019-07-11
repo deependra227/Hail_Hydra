@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'sidebar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:cached_network_image/cached_network_image.dart';
 class Blog extends StatefulWidget {
   @override
   _BlogState createState() => _BlogState();
@@ -21,7 +21,8 @@ Widget title(DocumentSnapshot list) => Container(
     child:Stack(
       alignment: Alignment.center,
       children: <Widget>[
-        Image.network(list.data['img']),
+        // Image.network(list.data['img']),
+        CachedNetworkImage(imageUrl: list.data['img'],),
         
          Column(
           //  mainAxisAlignment: MainAxisAlignment.end,
@@ -60,13 +61,13 @@ Widget blogtext(DocumentSnapshot list) =>Container(
        ,
        SizedBox(height: 10.0,),
 
-       Text(list.data['content'],
+       Text(list.data['context2'],
        style: TextStyle(fontSize: 16.0),
        textAlign: TextAlign.justify,),
 
        SizedBox(height: 10.0,),
 
-       Text(list.data['content'],
+       Text(list.data['context3'],
        style: TextStyle(fontSize: 16.0),
        textAlign: TextAlign.justify,),
   ],
@@ -77,9 +78,19 @@ Widget blogger(DocumentSnapshot list)=> Column(
   children: <Widget>[
     SizedBox(height: 20.0,),
     CircleAvatar(
-      backgroundImage: NetworkImage(list.data['photo'])  ,
+      backgroundImage: CachedNetworkImageProvider(list.data['photo'])  ,
       radius: 40.0,
     ),
+    // CachedNetworkImage(imageUrl: list.data['photo'],
+    // imageBuilder: (context,imageProvider)=>Container(
+    //   height: 80.0,
+    //   width: 80.0,
+    //   decoration: BoxDecoration(
+    //     shape: BoxShape.circle,
+    //     image: DecorationImage(image: imageProvider,fit: BoxFit.cover)
+    //   ),
+    // ),
+    // ),
     SizedBox(height: 5.0,),
     Text('~'+list.data['name'],
     style: TextStyle(fontSize: 16.0),),
@@ -93,7 +104,7 @@ Widget blogger(DocumentSnapshot list)=> Column(
       drawer: sideBar(context) ,
       appBar: AppBar(
         title: Text("Blog of the day"),
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.green,
       ),
       body:FutureBuilder(future: getBlog(),builder: (_,snapshot){
         Widget page;

@@ -18,7 +18,7 @@ class MedList extends StatelessWidget {
       ),
       appBar: AppBar(
         title: Text("Medicine"),
-        backgroundColor: Colors.black,
+        backgroundColor: Color.fromRGBO(0, 0, 255, 1),
       ),
       body: FutureBuilder(future: getMed(),builder:(_,snapshot)
       {

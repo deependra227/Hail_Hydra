@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dart:math' show cos, sqrt, asin;
-
+import 'package:cached_network_image/cached_network_image.dart';
 class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.all(20),
-                child: CircleAvatar(backgroundImage: NetworkImage(list.data['img']),radius: 45.0,),
+                child: CircleAvatar(backgroundImage: CachedNetworkImageProvider(list.data['img']),radius: 45.0,),
               ),
               Expanded(child:Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[menuData(list)],) ,)
               
@@ -146,7 +146,7 @@ class _MyHomePageState extends State<MyHomePage> {
                print("Ab Chala ");
                 distance = calculateDistance(currentLocation.latitude, currentLocation.longitude, snapshot.data[index].data['location'].latitude, snapshot.data[index].data['location'].longitude);          
                 print("Distance is : " + distance.toString());
-                if (distance < 5)
+                if (distance < 10)
                   doctor.add(snapshot.data[index]);
               }
             }
