@@ -1,7 +1,10 @@
 import 'package:demo1/sidebar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import '../models/place_model.dart';
 import '../services/gplace_service.dart';
+import 'package:geolocator/geolocator.dart';
+import 'dart:async';
 
 class PlacesPage extends StatefulWidget {
   @override
@@ -9,14 +12,11 @@ class PlacesPage extends StatefulWidget {
 }
 
 class Placestate extends State<PlacesPage> {
-
   String _currentPlaceId;
+
   @override
   Widget build(BuildContext context) {
-
-      // onItemTapped= ()=> Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context)=>new PlaceDetailPage(_currentPlaceId)));
-
-    // TODO: implement build
+    // onItemTapped= ()=> Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context)=>new PlaceDetailPage(_currentPlaceId)));
     return new Scaffold(
       drawer: sideBar(context),
         appBar: new AppBar(
@@ -40,26 +40,13 @@ class Placestate extends State<PlacesPage> {
       return new ListView(    
          children: _places.map((f){
            return new Card(
-              // child: new ListTile(
-              // title: new Text(f.name,style: _biggerFont,),
-              //  leading: new Image.network(f.icon),
-              //  subtitle: new Text(f.vicinity),
-              // ),
               child : new Center(
                 child : AnimatedContainer(
                   duration: Duration(seconds: 2),
                   height :MediaQuery.of(context).size.height / 5.5,
                   width : MediaQuery.of(context).size.width,
-                  // decoration: BoxDecoration(gradient: LinearGradient(colors: kitGradients)),
                   child:Material(
                     child:InkWell(
-                    
-                      // onTap: (){
-                      //   // doctor = [];
-                      //   // Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorPage(list : list,)));
-                      //   Navigator.push(context, MaterialPageRoute(builder: (context)=>PlacesPage()));
-                      //   // print("After resetting : " + doctor.length.toString());
-                      // },
                       splashColor: Colors.blue,
                       child: Card(
                         clipBehavior: Clip.antiAlias,
@@ -73,7 +60,6 @@ class Placestate extends State<PlacesPage> {
                                 Padding(
                                   padding: EdgeInsets.all(20),
                                   child:Image.asset('assets/hospital.png'),
-                                //    Avtar(backgroundImage: ExactAssetImage("assets/hospital.png"),/* NetworkImage("https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg"),*/radius: 45.0,),
                                 ),
                                 
                                 Container(
@@ -86,8 +72,9 @@ class Placestate extends State<PlacesPage> {
                                         child : Column(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: <Widget>[
-                                            Text(f.name,style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,fontSize: 20.0),),
-                                            ]
+                                            Text(f.name,style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,fontSize: 20.0,), textAlign: TextAlign.center,),
+                                            Text(f.vicinity,  textAlign: TextAlign.center),
+                                          ]
                                         ) ,
                                       ),
                                     ],
@@ -109,17 +96,26 @@ class Placestate extends State<PlacesPage> {
       );
     }
   }
+  var lat, long;
   List<PlaceDetail> _places;
   @override
   void initState() {
     super.initState();
+    _fetchDoctorList();
+  }
+
+
+  Future _fetchDoctorList() async {
+    var currentLocation = await Geolocator().getCurrentPosition();
+    lat = currentLocation.latitude.toString();
+    long = currentLocation.longitude.toString();
     if (_places == null) {
-      LocationService.get().getNearbyPlaces().then((data) {
-        this.setState(() {
-          _places = data;
-          print("Length of Places in master" + _places.length.toString());
-        });
+    LocationService.get().getNearbyPlaces(lat, long).then((data) {
+      this.setState(() {
+        _places = data;
+        print("Length of Places in master" + _places.length.toString());
       });
+     });
     }
   }
 }

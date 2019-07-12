@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
   
 
-  Widget com(buildContext,DocumentSnapshot list) => Center(
+  Widget doctorPallete(buildContext,DocumentSnapshot list) => Center(
     child : AnimatedContainer(
       duration: Duration(seconds: 2),
       height :MediaQuery.of(context).size.height / 5.5,
@@ -157,7 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
              newListTab = ListView.builder(
                itemCount: doctor.length,
                itemBuilder: (BuildContext context,int index){
-                 return com(context, doctor[index]);
+                 return doctorPallete(context, doctor[index]);
                }
              );
 

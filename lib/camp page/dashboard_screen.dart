@@ -146,6 +146,7 @@ class _BloodCampState extends State<BloodCamp> {
   }
  Widget recentUpdateListWidget(DocumentSnapshot list) =>
   Container(
+    
       margin: EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
       decoration: new BoxDecoration(
         shape: BoxShape.rectangle,
@@ -160,6 +161,8 @@ class _BloodCampState extends State<BloodCamp> {
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
+        textDirection: TextDirection.ltr,
+        verticalDirection: VerticalDirection.down,
         children: <Widget>[
           Padding(
             padding:
@@ -171,30 +174,8 @@ class _BloodCampState extends State<BloodCamp> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              // Padding(
-                
-              //   padding: EdgeInsets.symmetric(vertical: 10.0),
-              //   child: Text(
-              //     list.data['name'],
-                  
-                  
-                //   style: TextStyle(
-                //       color: Colors.black87,
-                //       fontSize: 18.0,
-                //       fontWeight: FontWeight.bold),
-                //   overflow: TextOverflow.ellipsis,
-                // ),
-              // ),
-              // Padding(
-              //   padding: EdgeInsets.symmetric(vertical: 0.0),
-              //   child: Text(
-              //     list.data['address']
-                
-              //    ),
-                 
-              // ),
               Container(
-                width: MediaQuery.of(context).size.width*.60,
+                width: MediaQuery.of(context).size.width*.55,
                 child: Text(list.data['name'],
                 style: TextStyle(
                       color: Colors.black87,
@@ -203,8 +184,9 @@ class _BloodCampState extends State<BloodCamp> {
                   // overflow: TextOverflow.ellipsis,
                 ),),
               Container(
-                width: MediaQuery.of(context).size.width*.60,
-                child: Text(list.data['address']),),
+                width: MediaQuery.of(context).size.width *0.58,
+                child: Column( children: <Widget>[Text(list.data['address'])]),
+              ),
               Row(
                 children: <Widget>[
                    new IconButton(
