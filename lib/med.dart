@@ -18,7 +18,7 @@ class MedList extends StatelessWidget {
       ),
       appBar: AppBar(
         title: Text("Medicine"),
-        backgroundColor: Color.fromRGBO(0, 0, 255, 1),
+        backgroundColor: Color.fromRGBO(254, 163, 81, 1),
       ),
       body: FutureBuilder(future: getMed(),builder:(_,snapshot)
       {
@@ -26,12 +26,13 @@ class MedList extends StatelessWidget {
         if(snapshot.hasData){
           
           newList=ListView.builder(
-            itemCount: snapshot.data.length,
+            itemCount: 
+            snapshot.data.length,
             itemBuilder: (context, index) {
               return SimpleFoldingCell(
                   frontWidget: _buildFrontWidget(snapshot.data[index],index),
                   innerTopWidget: _buildInnerTopWidget(snapshot.data[index],index),
-                  innerBottomWidget: _buildInnerBottomWidget(index),
+                  innerBottomWidget: _buildInnerBottomWidget(snapshot.data[index],index),
                   cellSize: Size(MediaQuery.of(context).size.width, 125),
                   padding: EdgeInsets.all(15),
                   animationDuration: Duration(milliseconds: 300),
@@ -72,9 +73,15 @@ class MedList extends StatelessWidget {
     return Builder(
       builder: (BuildContext context) {
         return Container(
-            color: Colors.lightBlueAccent,
+            color: Color.fromRGBO(254, 189, 122,1),
             alignment: Alignment.center,
-            child: Column(
+            child: InkWell(
+              onTap:(){ SimpleFoldingCellState foldingCellState =
+                    context.ancestorStateOfType(
+                        TypeMatcher<SimpleFoldingCellState>());
+                    foldingCellState?.toggleFold();
+                  },
+              child:Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(med.data['name'],
@@ -83,46 +90,66 @@ class MedList extends StatelessWidget {
                         fontFamily: 'OpenSans',
                         fontSize: 20.0,
                         fontWeight: FontWeight.w800)),
-                FlatButton(
-                  onPressed: () {
-                    SimpleFoldingCellState foldingCellState =
-                    context.ancestorStateOfType(
-                        TypeMatcher<SimpleFoldingCellState>());
-                    foldingCellState?.toggleFold();
-                  },
-                  child: Text(
-                    "Open",
-                  ),
-                  textColor: Colors.white,
-                  color: Colors.indigoAccent,
-                  splashColor: Colors.white.withOpacity(0.5),
-                )
+                //  FlatButton(
+                //   onPressed: () {
+                //     SimpleFoldingCellState foldingCellState =
+                //     context.ancestorStateOfType(
+                //         TypeMatcher<SimpleFoldingCellState>());
+                //     foldingCellState?.toggleFold();
+                //   },
+                //   child: Text(
+                //     med.data['price'],
+                //   ),
+                //   textColor: Colors.white,
+                //   color: Colors.indigoAccent,
+                //   splashColor: Colors.white.withOpacity(0.5),
+                // )
               ],
-            ));
+            )) ,
+            );
+            
       },
     );
   }
 
   Widget _buildInnerTopWidget(DocumentSnapshot med,int index) {
     return Container(
-        color: Colors.blueAccent,
+        color: Color.fromRGBO(249, 150, 50, 1),
         alignment: Alignment.center,
-        child: Text(med.data['name'],
-            style: TextStyle(
-                color: Color(0xFF2e282a),
-                fontFamily: 'OpenSans',
-                fontSize: 20.0,
-                fontWeight: FontWeight.w800)));
+        child: Container(
+          margin: EdgeInsets.all(10),
+          child: Text(med.data['des'],
+              style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'OpenSans',
+                  fontSize: 15.0,
+                  
+                  ),textAlign: TextAlign.justify,),
+        )
+                );
   }
 
-  Widget _buildInnerBottomWidget(int index) {
+  Widget _buildInnerBottomWidget(DocumentSnapshot med, int index) {
     return Builder(builder: (context) {
       return Container(
+        // height: 750,
         color: Color(0xFFecf2f9),
         alignment: Alignment.bottomCenter,
         child: Padding(
           padding: EdgeInsets.only(bottom: 10),
-          child: FlatButton(
+          child: Column(
+            children: <Widget>[
+              // Container(child: Text('Common Uses',style: TextStyle(fontWeight:FontWeight.bold ),))
+              Container(
+                alignment: Alignment.center,
+                margin: EdgeInsets.all(10),
+                child: Text(
+                  med.data['use'],
+                  textAlign: TextAlign.justify,
+                  
+                ),
+              ),
+              FlatButton(
             onPressed: () {
               SimpleFoldingCellState foldingCellState = context
                   .ancestorStateOfType(TypeMatcher<SimpleFoldingCellState>());
@@ -135,6 +162,8 @@ class MedList extends StatelessWidget {
             color: Colors.indigoAccent,
             splashColor: Colors.white.withOpacity(0.5),
           ),
+            ],
+          )
         ),
       );
     });

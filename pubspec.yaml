@@ -23,6 +23,7 @@ dependencies:
   geoflutterfire: ^2.0.2
   geolocator: '^5.0.0'
   cached_network_image: ^0.7.0
+  flutter_svg: ^0.12.4
   # location: 1.4.1
   flutter:
     sdk: flutter
@@ -68,6 +69,8 @@ flutter:
     - assets/1004.jpg
     - assets/logo.png
     - assets/blood.jpg
+    - assets/hospital_icon.png
+    - assets/doctor_icon.png
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
