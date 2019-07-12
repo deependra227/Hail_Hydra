@@ -26,7 +26,7 @@ import 'package:flutter/material.dart';
               title: Text('Doctors near me'),
               leading: Icon(Icons.navigate_next),
                 onTap: () {
-              Navigator.pushReplacementNamed(context, '/doctorlist');
+              Navigator.pushReplacementNamed(context, '/doctorby');
 //              Navigator.pop(context);
               },
             ),

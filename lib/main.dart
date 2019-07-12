@@ -8,6 +8,7 @@ import 'med.dart';
 import 'blog.dart';
 import 'camp page/dashboard_screen.dart';
 import 'doctorby.dart';
+import 'pages/places_page.dart';
 void main() async {
   await imedViewModel.load();
   runApp(MyApp());
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         '/blog' : (BuildContext context) => Blog(),
         '/bloodcamp' :(BuildContext context) => BloodCamp(),
         '/doctorby': (BuildContext context ) => DoctorBy(),
+        '/places' :(BuildContext context) => PlacesPage(),
       }
     );
   }

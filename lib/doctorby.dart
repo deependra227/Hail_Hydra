@@ -13,7 +13,7 @@ class _DoctorByState extends State<DoctorBy> {
     return Scaffold(
       drawer: sideBar(context),
        appBar: AppBar(
-        title: Text("Doctor",style: TextStyle(color: Colors.black),),
+        title: Text("Search By",style: TextStyle(color: Colors.black),),
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Colors.black),
       ),
@@ -25,8 +25,8 @@ class _DoctorByState extends State<DoctorBy> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               
-              doctor('assets/hospital_icon.png','Search By Hospitals' ),
-              doctor('assets/doctor_icon.png','Search By Doctors' ),
+              doctor('assets/hospital_icon.png','Search By Hospitals','/places' ),
+              doctor('assets/doctor_icon.png','Search By Doctors' ,'/doctorlist'),
             ],
           ),
         ],
@@ -35,8 +35,8 @@ class _DoctorByState extends State<DoctorBy> {
     
   }
 
-  Widget  doctor(String img,String title)=>  InkWell(
-        onTap: () => {},
+  Widget  doctor(String img,String title,String path)=>  InkWell(
+        onTap: () => Navigator.pushNamed(context, path),
         splashColor: Colors.blue,
         child: Card(
           // margin: EdgeInsets.all(11.0),

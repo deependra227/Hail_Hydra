@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.all(20),
-                child: CircleAvatar(backgroundImage: CachedNetworkImageProvider(list.data['img']),radius: 45.0,),
+                child: CircleAvatar(backgroundImage: ExactAssetImage('assets/doctor.png'),radius: 45.0,),
               ),
               Expanded(child:Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[menuData(list)],) ,)
               
@@ -104,7 +104,8 @@ class _MyHomePageState extends State<MyHomePage> {
   );
 
   Widget appBar() =>AppBar(
-    backgroundColor: Colors.black,
+    backgroundColor: Colors.white,
+    iconTheme: IconThemeData(color: Colors.black),
     // pinned: true,
     elevation: 10.0,
     flexibleSpace: FlexibleSpaceBar(
@@ -115,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // ),
       title: Row(
         children: <Widget>[
-          Text('Doctors')
+          Text('Doctors',style: TextStyle(color: Colors.black),)
         ],
       ),
     ),
