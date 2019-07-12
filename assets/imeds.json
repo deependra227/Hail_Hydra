@@ -3,7 +3,7 @@
       "id": 1001,
       "title": "Doctors Around Me",
       "description": "Looking for an specialist? A list of doctors around you with particular specialisation with contact details on a single tap.",
-      "sourceUrl": "/doctorlist",
+      "sourceUrl": "/doctorby",
       "image": "1001.jpg"
    },
    {

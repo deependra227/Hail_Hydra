@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:demo1/sidebar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -171,25 +171,62 @@ class _BloodCampState extends State<BloodCamp> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 10.0),
-                child: Text(
-                  list.data['name'],
+              // Padding(
+                
+              //   padding: EdgeInsets.symmetric(vertical: 10.0),
+              //   child: Text(
+              //     list.data['name'],
                   
-                  style: TextStyle(
+                  
+                //   style: TextStyle(
+                //       color: Colors.black87,
+                //       fontSize: 18.0,
+                //       fontWeight: FontWeight.bold),
+                //   overflow: TextOverflow.ellipsis,
+                // ),
+              // ),
+              // Padding(
+              //   padding: EdgeInsets.symmetric(vertical: 0.0),
+              //   child: Text(
+              //     list.data['address']
+                
+              //    ),
+                 
+              // ),
+              Container(
+                width: MediaQuery.of(context).size.width*.60,
+                child: Text(list.data['name'],
+                style: TextStyle(
                       color: Colors.black87,
                       fontSize: 18.0,
                       fontWeight: FontWeight.bold),
-                  overflow: TextOverflow.ellipsis,
-                ),
+                  // overflow: TextOverflow.ellipsis,
+                ),),
+              Container(
+                width: MediaQuery.of(context).size.width*.60,
+                child: Text(list.data['address']),),
+              Row(
+                children: <Widget>[
+                   new IconButton(
+          icon: new Icon(Icons.call),
+          onPressed: () => launch("tel://"+list.data['phone']),
+          splashColor: Colors.black,
+        ),
+        Text(list.data['phone'])
+                ],
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 0.0),
-                child: Text(
-                  'hello'
-                
-                 ),
-              )
+
+        // Expanded(
+        //     child: Padding(
+        //       padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        //       child: Column(
+        //         mainAxisAlignment: MainAxisAlignment.center,
+        //         crossAxisAlignment: CrossAxisAlignment.start,
+        //         children: <Widget>[
+        //           Text(list.data['phone']),
+        //         ],
+        //       ),
+        //     ))
             ],
           )
         ],

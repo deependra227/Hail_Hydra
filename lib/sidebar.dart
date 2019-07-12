@@ -2,22 +2,26 @@ import 'package:flutter/material.dart';
 
   Widget sideBar(BuildContext context) {
     return new Drawer(
+    
         child: ListView(
           padding: EdgeInsets.all(0),
+          
 
           children: <Widget>[
             UserAccountsDrawerHeader(
               
 
-              currentAccountPicture: CircleAvatar(
-               backgroundImage: ExactAssetImage('assets/logo.png'),
-               child: InkWell(onTap: () => Navigator.of(context).popUntil(ModalRoute.withName('/homepage'))),
-              ),
+              // currentAccountPicture: CircleAvatar(
+              //  backgroundImage: ExactAssetImage('assets/logo.png'),
+              //  child: InkWell(onTap: () => Navigator.of(context).popUntil(ModalRoute.withName('/homepage'))),
+              // ),
 
               decoration: BoxDecoration(
-                color: Colors.black,
+                image: DecorationImage(image: ExactAssetImage('assets/logo.png',)),
+                color: Colors.white,
               ),
             ),
+            Divider(color: Colors.black,),
             ListTile(
               title: Text('Doctors near me'),
               leading: Icon(Icons.navigate_next),

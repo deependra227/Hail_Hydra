@@ -7,6 +7,7 @@ import 'viewmodels/imed_viewmodel.dart';
 import 'med.dart';
 import 'blog.dart';
 import 'camp page/dashboard_screen.dart';
+import 'doctorby.dart';
 void main() async {
   await imedViewModel.load();
   runApp(MyApp());
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         '/medlist' : (BuildContext context) => MedList(),
         '/blog' : (BuildContext context) => Blog(),
         '/bloodcamp' :(BuildContext context) => BloodCamp(),
+        '/doctorby': (BuildContext context ) => DoctorBy(),
       }
     );
   }
