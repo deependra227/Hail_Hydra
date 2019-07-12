@@ -9,13 +9,6 @@ import 'package:flutter/material.dart';
 
           children: <Widget>[
             UserAccountsDrawerHeader(
-              
-
-              // currentAccountPicture: CircleAvatar(
-              //  backgroundImage: ExactAssetImage('assets/logo.png'),
-              //  child: InkWell(onTap: () => Navigator.of(context).popUntil(ModalRoute.withName('/homepage'))),
-              // ),
-
               decoration: BoxDecoration(
                 image: DecorationImage(image: ExactAssetImage('assets/logo.png',)),
                 color: Colors.white,
@@ -27,17 +20,13 @@ import 'package:flutter/material.dart';
               leading: Icon(Icons.navigate_next),
                 onTap: () {
               Navigator.pushReplacementNamed(context, '/doctorby');
-//              Navigator.pop(context);
               },
             ),
             ListTile(
               title: Text('Medicine'),
               leading: Icon(Icons.navigate_next),
               onTap: () {
-                // Update the state of the app.
-                // ...
                 Navigator.pushReplacementNamed(context, '/medlist');
-
               },
             ),
             ListTile(
