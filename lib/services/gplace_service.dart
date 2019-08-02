@@ -11,7 +11,7 @@ class LocationService {
     return _locationService;
   }
   Future<List<PlaceDetail>> getNearbyPlaces(String lat, String long) async {
-    var reponse = await http.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${long}&radius=1500&type=hospital&key=AIzaSyANLtOOKe4piwIKqT6ofP8Szi67YSRI2qM"
+    var reponse = await http.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${long}&radius=1500&type=hospital&key=API_Key"
                                   , headers: {"Accept": "application/json"});
 
     List data = json.decode(reponse.body)["results"];
